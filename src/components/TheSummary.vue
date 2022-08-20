@@ -60,7 +60,7 @@
 </div >
 <div class="buttons">
     <div>
-        <button @click="sendEmail">Wyślij cenę okna</button>
+        <button @click="submit">Wyślij cenę okna</button>
     </div>
     <div>
         <button @click="addItem">Dodaj kolejną pozycję</button>
@@ -77,10 +77,14 @@
     <p>Coś poszło nie tak, spróbuj jeszcze raz!</p>
 </div>
 </div>
+
+
+
 </template>
 <script>
 import emailjs from '@emailjs/browser';
-import store from '../store/index.js';  // import the store  
+import store from '../store/index.js';  // import the store 
+import axios from 'axios'; 
 export default {
     data() {
         return {
@@ -103,6 +107,16 @@ export default {
         }
     },
     methods: {
+            submit() {
+      axios.post('../../mailer.php', {
+                'okna': this.mojeOkna,
+                'email': this.yourEmail              
+        }).then(response => {
+                console.log('success', response.data.message)                   
+        }).catch(error => {
+              console.log(error.response)
+     }); 
+},
         addItem() {
             const window = {
                 typ: this.$store.state.winType,
@@ -271,7 +285,9 @@ setTimeout(() => {
                     letIn = true;
                 }         
                 next( letIn);
-            }
+            },
+
+
 }
 </script>
 

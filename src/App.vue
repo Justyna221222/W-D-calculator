@@ -11,7 +11,9 @@
             <div>
             <router-view></router-view>
             </div>
-
+            <div>
+            <sending-emails></sending-emails>
+            </div>
     </div>  
 </template>
 
@@ -21,7 +23,7 @@
     export default {
         components: {
             TheHeader,
-            TheBasket
+            TheBasket,
         },
         data() {
             return {
